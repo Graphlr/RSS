@@ -17,7 +17,12 @@ class XML implements ParserInterface
         }
 
         if (!isset($xml->channel->item)) {
-            throw new InvalidFeedContentException();
+
+            if (!isset($xml->entry)) {
+                throw new InvalidFeedContentException();
+            }
+
+            return Feed::make((array) $xml);
         }
 
         return Feed::make((array) $xml->channel);
