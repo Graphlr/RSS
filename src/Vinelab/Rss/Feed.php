@@ -62,6 +62,16 @@ class Feed implements Contracts\FeedInterface
         }else{
             $this->addArticle($channel['item']);
         }
+        
+        if(isset($channel['entry'])) {
+            if (is_array($channel['entry'])) {
+                foreach ($channel['entry'] as $entry) {
+                    $this->addArticle($entry);
+                }
+            } else {
+                $this->addArticle($channel['entry']);
+            }
+        }
     }
 
     /**
