@@ -55,12 +55,14 @@ class Feed implements Contracts\FeedInterface
     {
         $this->articles = new ArticlesCollection();
 
-        if(is_array($channel['item'])){
-            foreach ($channel['item'] as $entry) {
-                $this->addArticle($entry);
+        if(isset($channel['item'])) {
+            if(is_array($channel['item'])){
+                foreach ($channel['item'] as $entry) {
+                    $this->addArticle($entry);
+                }
+            }else{
+                $this->addArticle($channel['item']);
             }
-        }else{
-            $this->addArticle($channel['item']);
         }
         
         if(isset($channel['entry'])) {
